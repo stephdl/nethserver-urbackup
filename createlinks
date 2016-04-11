@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks  qw(:all);
+
+my $event = "nethserver-urbackup-update";
+
+event_actions($event, 
+             'initialize-default-databases' => '00');
+
+templates2events("/etc/httpd/conf/httpd.conf",  $event);
+
+event_services($event, 'httpd' => 'reload');

@@ -1,0 +1,12 @@
+#
+#60urbcakup
+#
+{
+my $name = ${'urbackup-server'}{'Name'} || 'urbackup';
+
+if ( $Port == 80 || ! defined $SslMode )
+{
+$OUT .= " RewriteEngine On\n";
+$OUT .= " RewriteRule ^/$name(/.*|\$)    https://%{HTTP_HOST}/$name\$1 [L,R]\n";
+}
+}
