@@ -1,0 +1,20 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks  qw(:all);
+
+my $event = "nethserver-urbackup-update";
+event_actions($event,
+             'initialize-default-databases' => '00');
+
+foreach my $event (qw ( nethserver-urbackup-update nethserver-urbackup-save ))
+    {
+    templates2events("/etc/httpd/conf/httpd.conf",  $event);
+    templates2events("/etc/httpd/conf.d/urbackup.conf",  $event);
+
+    event_services($event, 'httpd' => 'reload');
+    event_services($event, 'urbackup-server' => 'restart');
+    }
+
+my $event = "nethserver-urbackup-save";
+event_actions($event,
+    'firewall-adjust' => '10');

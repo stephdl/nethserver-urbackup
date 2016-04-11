@@ -1,0 +1,49 @@
+{ 
+
+my $status = ${'urbackup-server'}{'status'} || "disabled";
+    return "    # urbackup is disabled in this VirtualHost"
+           unless $status eq 'enabled';
+
+$OUT .= qq(
+
+###########################################################
+########       urbackup reverse proxy         ##########
+############################################################
+
+
+ProxyPass /${'urbackup-server'}{Name} http://127.0.0.1:55414
+ProxyPassReverse /${'urbackup-server'}{Name} http://127.0.0.1:55414
+
+<Location /urbackup>
+AuthName "${'urbackup-server'}{'Name'}"
+order deny,allow
+deny from all
+);
+
+if (${'urbackup-server'}{'PublicAccess'} eq 'private')
+    {       
+    $OUT .= "allow from $localAccess\n";
+    } 
+
+elsif (${'urbackup-server'}{'PublicAccess'} eq 'public')
+    {
+    $OUT .= "allow from all\n";
+    }
+
+elsif (${'urbackup-server'}{'PublicAccess'} eq 'IP')
+    {
+    my @fixedip = split(/,/, (${'urbackup-server'}{'FixedIP'} || ""));
+    my $ipform ='';
+    foreach (@fixedip) {
+        $ipform = $ipform . ' ' . $_;
+        }
+    $OUT .= "allow from $ipform\n";
+    }
+
+elsif ((${'urbackup-server'}{'PublicAccess'} ne 'public') && (${'urbackup-server'}{'PublicAccess'} ne 'private'))
+    {
+    $OUT .= "allow from none\n";
+    }
+
+$OUT .= "</Location>";
+}

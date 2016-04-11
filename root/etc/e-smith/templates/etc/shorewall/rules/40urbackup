@@ -1,0 +1,14 @@
+{
+my $urb = ${'urbackup-server'}{'status'} || 'disabled';
+my $tcp = ${'urbackup-server'}{'InternetClientTCPPort'} || '55415';
+my $udp = ${'urbackup-server'}{'BroadcastDiscoveryUDPPort'} || '35623';
+
+if ($urb eq 'enabled') {
+
+    $OUT .= "#\n# Urbackup-server\n#\n";
+    $OUT .= "?COMMENT Enable urbackup-server\n";
+    $OUT .= "ACCEPT\tnet\t\$FW\ttcp\t$tcp\n";
+    $OUT .= "ACCEPT\tloc\t\$FW\ttcp\t$tcp\n";
+    $OUT .= "ACCEPT\tloc\t\$FW\tudp\t$udp\n";
+    }
+}
