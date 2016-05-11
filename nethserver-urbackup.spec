@@ -1,5 +1,5 @@
 %define name nethserver-urbackup
-%define version 0.0.1
+%define version 0.0.2
 %define release 1
 Summary: Nethserver integration of urbcakup
 Name: %{name}
@@ -25,12 +25,15 @@ UrBackup is an easy to setup open source client/server backup system, that throu
 
 %build
 perl ./createlinks
+%{__mkdir_p} root/var/lib/urbackup
 
 %install
 rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-filelist
-/sbin/e-smith/genfilelist $RPM_BUILD_ROOT \
+/sbin/e-smith/genfilelist \
+  --dir /var/lib/urbackup 'attr(0755,urbackup,urbackup)' \
+$RPM_BUILD_ROOT \
 	> %{name}-%{version}-filelist
 
 %files -f %{name}-%{version}-filelist
@@ -45,5 +48,8 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Wed May 11 2016 stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.2
+- the folder /var/lib/urbackup is created by the rpm
+
 * Sat Apr 23 2016 stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.1
 - First release to Nethserver
