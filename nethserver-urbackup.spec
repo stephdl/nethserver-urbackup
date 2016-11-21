@@ -1,7 +1,7 @@
 %define name nethserver-urbackup
-%define version 0.0.2
+%define version 0.1.0
 %define release 1
-Summary: Nethserver integration of urbcakup
+Summary: Nethserver integration of urbackup
 Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
@@ -31,23 +31,26 @@ perl ./createlinks
 rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-filelist
-/sbin/e-smith/genfilelist \
+%{genfilelist} \
   --dir /var/lib/urbackup 'attr(0755,urbackup,urbackup)' \
 $RPM_BUILD_ROOT \
 	> %{name}-%{version}-filelist
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
-
+%dir %{_nseventsdir}/%{name}-update
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/chkconfig urbackup-server on
+/usr/bin/systemctl enable urbackup-server
 
 %postun
 
 %changelog
+* Mon Nov 21 2016 stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.0-1.ns7
+- New version for ns7
+
 * Wed May 11 2016 stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.2
 - the folder /var/lib/urbackup is created by the rpm
 

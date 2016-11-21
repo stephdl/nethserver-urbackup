@@ -16,7 +16,7 @@ class Urbackup extends \Nethgui\Module\AbstractModule implements \NethServer\Mod
          $webapp = $this->getPlatform()->getDatabase('configuration')->getProp('urbackup-server','Name');
          $host = explode(':',$_SERVER['HTTP_HOST']);
          return array(
-            'url_Urbackup' => "https://".$host[0]."/$webapp/"
+            'url' => "https://".$host[0]."/$webapp/"
          );
     }
 }
