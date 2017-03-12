@@ -1,6 +1,6 @@
 %define name nethserver-urbackup
 %define version 0.1.0
-%define release 1
+%define release 2
 Summary: Nethserver integration of urbackup
 Name: %{name}
 Version: %{version}
@@ -39,6 +39,8 @@ $RPM_BUILD_ROOT \
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
 %dir %{_nseventsdir}/%{name}-update
+%doc COPYING
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -48,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.0-2.ns7
+- GPL license
+
 * Mon Nov 21 2016 stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.0-1.ns7
 - New version for ns7
 
