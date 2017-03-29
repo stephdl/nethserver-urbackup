@@ -18,3 +18,7 @@ foreach my $event (qw ( nethserver-urbackup-update nethserver-urbackup-save ))
 my $event = "nethserver-urbackup-save";
 event_actions($event,
     'firewall-adjust' => '10');
+
+my $event = 'trusted-networks-modify';
+    templates2events("/etc/httpd/conf.d/urbackup.conf",  $event);
+
