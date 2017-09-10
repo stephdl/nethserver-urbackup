@@ -1,5 +1,5 @@
 %define name nethserver-urbackup
-%define version 0.0.3
+%define version 0.0.4
 %define release 1
 Summary: Nethserver integration of urbcakup
 Name: %{name}
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Sun Sep 10 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.4-1
+- Restart httpd service on trusted-network
+
 * Wed Mar 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.0.3-1
 - Template expansion on trusted-network
 

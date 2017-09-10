@@ -20,5 +20,5 @@ event_actions($event,
     'firewall-adjust' => '10');
 
 my $event = 'trusted-networks-modify';
-    templates2events("/etc/httpd/conf.d/urbackup.conf",  $event);
-
+templates2events("/etc/httpd/conf.d/urbackup.conf",  $event);
+event_services($event, 'httpd' => 'reload');
