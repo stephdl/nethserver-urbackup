@@ -4,7 +4,8 @@ use esmith::Build::CreateLinks  qw(:all);
 
 my $event = "nethserver-urbackup-update";
 event_actions($event,
-             'initialize-default-databases' => '00');
+             'initialize-default-databases' => '00',
+             'urbackup_enablerepo' => 10);
 
 foreach my $event (qw ( nethserver-urbackup-update nethserver-urbackup-save ))
     {
