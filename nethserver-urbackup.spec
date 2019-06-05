@@ -1,5 +1,5 @@
 %define name nethserver-urbackup
-%define version 0.1.2
+%define version 0.1.3
 %define release 1
 Summary: Nethserver integration of urbackup
 Name: %{name}
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Wed Jun 5 2019 Stephane de Labrusse  <stephdl@de-labrusse.fr> - 0.1.3
+- Enable urbackup repo with  software-repos-save
+
 * Sun Sep 10 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.2-1.ns7
 - Restart httpd service on trusted-network
 
