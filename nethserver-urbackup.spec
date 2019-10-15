@@ -1,5 +1,5 @@
 %define name nethserver-urbackup
-%define version 0.1.3
+%define version 0.1.4
 %define release 1
 Summary: Nethserver integration of urbackup
 Name: %{name}
@@ -26,10 +26,20 @@ UrBackup is an easy to setup open source client/server backup system, that throu
 %build
 perl ./createlinks
 %{__mkdir_p} root/var/lib/urbackup
+sed -i 's/_RELEASE_/%{version}/' %{name}.json
 
 %install
 rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
+
+mkdir -p %{buildroot}/usr/share/cockpit/%{name}/
+mkdir -p %{buildroot}/usr/share/cockpit/nethserver/applications/
+mkdir -p %{buildroot}/usr/libexec/nethserver/api/%{name}/
+cp -a manifest.json %{buildroot}/usr/share/cockpit/%{name}/
+cp -a logo.png %{buildroot}/usr/share/cockpit/%{name}/
+cp -a %{name}.json %{buildroot}/usr/share/cockpit/nethserver/applications/
+cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
+
 rm -f %{name}-%{version}-filelist
 %{genfilelist} \
   --dir /var/lib/urbackup 'attr(0755,urbackup,urbackup)' \
@@ -50,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Tue Oct 15 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.4
+- cockpit. added to legacy apps
+
 * Wed Jun 5 2019 Stephane de Labrusse  <stephdl@de-labrusse.fr> - 0.1.3
 - Enable urbackup repo with  software-repos-save
 

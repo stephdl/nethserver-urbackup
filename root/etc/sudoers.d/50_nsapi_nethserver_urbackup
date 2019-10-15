@@ -1,0 +1,8 @@
+
+#
+# nsapi_nethserver_urbackup
+#
+Cmnd_Alias NSAPI_NETHSERVER_URBACKUP = \
+     /usr/libexec/nethserver/api/nethserver-urbackup/read
+
+Defaults!NSAPI_NETHSERVER_URBACKUP !requiretty
