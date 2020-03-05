@@ -1,5 +1,5 @@
 %define name nethserver-urbackup
-%define version 0.1.4
+%define version 1.0.1
 %define release 1
 Summary: Nethserver integration of urbackup
 Name: %{name}
@@ -50,6 +50,7 @@ $RPM_BUILD_ROOT \
 %defattr(-,root,root)
 %dir %{_nseventsdir}/%{name}-update
 %doc COPYING
+%attr(0440,root,root) /etc/sudoers.d/50_nsapi_nethserver_urbackup
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -60,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Thu Mar 05 2020  stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.1-1
+- Fix bad sudoers permission
+
 * Tue Oct 15 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> 0.1.4
 - cockpit. added to legacy apps
 
