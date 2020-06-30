@@ -1,5 +1,5 @@
 %define name nethserver-urbackup
-%define version 1.0.1
+%define version 1.0.2
 %define release 1
 Summary: Nethserver integration of urbackup
 Name: %{name}
@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Tue Jun 30 2020 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.2-1
+- Enable urbackup repository for subscription
+
 * Thu Mar 05 2020  stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.1-1
 - Fix bad sudoers permission
 
