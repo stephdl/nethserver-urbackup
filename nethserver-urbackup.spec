@@ -1,5 +1,5 @@
 %define name nethserver-urbackup
-%define version 1.0.2
+%define version 1.0.3
 %define release 1
 Summary: Nethserver integration of urbackup
 Name: %{name}
@@ -59,8 +59,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/systemctl enable urbackup-server
 
 %postun
+/usr/bin/rm -f /etc/httpd/conf.d/urbackup.conf
+/usr/bin/systemctl reload httpd
 
 %changelog
+* Sat Jul 04 2020 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.3
+- Remove http templates after rpm removal
+
 * Tue Jun 30 2020 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.2-1
 - Enable urbackup repository for subscription
 
