@@ -1,6 +1,6 @@
 %define name nethserver-urbackup
-%define version 1.0.3
-%define release 2
+%define version 1.0.4
+%define release 1
 Summary: Nethserver integration of urbackup
 Name: %{name}
 Version: %{version}
@@ -65,6 +65,11 @@ if [ $1 == 0 ] ; then
 fi
 
 %changelog
+* Thu Aug 12 2021 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.4
+- Do not trigger software-repos-save
+- https://github.com/stephdl/nethserver-urbackup/pull/1
+- Code from markVnl 
+
 * Sat Jul 04 2020 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.3
 - Remove http templates after rpm removal
 
